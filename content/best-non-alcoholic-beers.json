@@ -1,0 +1,47 @@
+{
+  "title": "Best Non-Alcoholic Beers",
+  "metaDescription": "We reviewed the top non-alcoholic beers to find the best options that taste like the real thing.",
+  "intro": "Looking for a beer without the buzz? Our team tested dozens of non-alcoholic beers to find the ones that taste most like traditional beer while offering the benefits of being alcohol-free.",
+  "products": [
+    {
+      "rank": 1,
+      "name": "Athletic Brewing Run Wild IPA",
+      "description": "This non-alcoholic IPA offers a perfect balance of hops and malt with citrus notes.",
+      "pros": [
+        "Authentic IPA taste",
+        "Great hop aroma",
+        "Less than 0.5% ABV"
+      ],
+      "cons": [
+        "Slightly higher price point",
+        "Limited availability in some regions"
+      ],
+      "url": "https://example.com/athletic-brewing"
+    },
+    {
+      "rank": 2,
+      "name": "Heineken 0.0",
+      "description": "A non-alcoholic version of the classic Heineken lager with the same refreshing taste.",
+      "pros": [
+        "Very similar to regular Heineken",
+        "Widely available",
+        "Affordable price"
+      ],
+      "cons": [
+        "Slightly sweeter than the original",
+        "Some find the aftertaste different"
+      ],
+      "url": "https://example.com/heineken-zero"
+    }
+  ],
+  "faq": [
+    {
+      "question": "Are non-alcoholic beers completely alcohol-free?",
+      "answer": "Most non-alcoholic beers contain a very small amount of alcohol (typically less than 0.5% ABV), which is similar to the amount found in kombucha or ripe fruit. This amount is so small that it has no intoxicating effect."
+    },
+    {
+      "question": "Do non-alcoholic beers taste like regular beer?",
+      "answer": "Modern non-alcoholic beers have come a long way in taste. Many craft options now taste very similar to their alcoholic counterparts, though there are still subtle differences in body and finish."
+    }
+  ]
+}

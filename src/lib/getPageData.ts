@@ -3,7 +3,6 @@ import path from 'path';
 
 export async function getPageData(slug: string) {
   try {
-    // TODO: Add schema validation for the JSON data
     const filePath = path.join(process.cwd(), 'content', `${slug}.json`);
     
     if (!fs.existsSync(filePath)) {

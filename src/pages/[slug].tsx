@@ -1,9 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
+import fs from 'fs';
+import path from 'path';
 import Layout from '../components/Layout';
 import ProductCard from '../components/ProductCard';
 import FAQ from '../components/FAQ';
-import { getPageData } from '../lib/getPageData';
 import { generateMeta } from '../utils/generateMeta';
 
 export default function ProductPage({ pageData }) {
@@ -19,7 +20,6 @@ export default function ProductPage({ pageData }) {
       <Head>
         <title>{meta.title}</title>
         <meta name="description" content={meta.description} />
-        {/* TODO: Add canonical tags, OpenGraph metadata, Twitter cards */}
       </Head>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -44,27 +44,55 @@ export default function ProductPage({ pageData }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // For now, we'll just pre-render the kanna drinks page
+  const contentDirectory = path.join(process.cwd(), 'content');
+  
+  // Check if the content directory exists
+  if (!fs.existsSync(contentDirectory)) {
+    return {
+      paths: [],
+      fallback: 'blocking',
+    };
+  }
+  
+  // Read all JSON files from the content directory
+  const filenames = fs.readdirSync(contentDirectory);
+  const jsonFiles = filenames.filter(filename => filename.endsWith('.json'));
+  
+  // Create paths for each JSON file
+  const paths = jsonFiles.map(filename => ({
+    params: { slug: filename.replace('.json', '') },
+  }));
+
   return {
-    paths: [{ params: { slug: 'best-kanna-drinks' } }],
+    paths,
     fallback: 'blocking',
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = params?.slug as string;
-  const pageData = await getPageData(slug);
-
-  if (!pageData) {
+  const filePath = path.join(process.cwd(), 'content', `${slug}.json`);
+  
+  try {
+    if (!fs.existsSync(filePath)) {
+      return {
+        notFound: true,
+      };
+    }
+    
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const pageData = JSON.parse(fileContents);
+    
+    return {
+      props: {
+        pageData,
+      },
+      revalidate: 86400, // Revalidate once per day
+    };
+  } catch (error) {
+    console.error(`Error loading page data for ${slug}:`, error);
     return {
       notFound: true,
     };
   }
-
-  return {
-    props: {
-      pageData,
-    },
-    revalidate: 86400, // Revalidate once per day
-  };
 };
